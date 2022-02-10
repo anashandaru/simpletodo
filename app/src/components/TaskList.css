@@ -1,0 +1,9 @@
+.tasks-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .tasks-list__fallback {
+    color: white;
+    text-align: center;
+  }
