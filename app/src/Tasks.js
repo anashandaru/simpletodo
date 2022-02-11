@@ -27,7 +27,7 @@ class Tasks extends Component {
         e.preventDefault();
         const originalTasks = this.state.tasks;
         try {
-            const { data } = await addTask({ task: this.state.currentTask });
+            const { data } = await addTask({ content: this.state.currentTask });
             const tasks = originalTasks;
             tasks.push(data);
             this.setState({ tasks, currentTask: "" });

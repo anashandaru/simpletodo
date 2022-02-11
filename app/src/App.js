@@ -64,7 +64,7 @@ class App extends Tasks {
                                             : "task"
                                     }
                                 >
-                                    {task.task}
+                                    {task.content}
                                 </div>
                                 <Button
                                     onClick={() => this.handleDelete(task._id)}

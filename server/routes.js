@@ -8,11 +8,12 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.route("/tasks/:task_id")
+router.route("/tasks/:id")
     .get(taskController.findById)
     .delete(taskController.delete)
-    .patch(taskController.update);
+    .put(taskController.update);
 
-router.route("/tasks").get(taskController.view).post(taskController.new);
+router.route("/tasks").get(taskController.view).post(taskController.new)
+router.route('/tasks/:filter').post(taskController.filter);
 
 module.exports = router;

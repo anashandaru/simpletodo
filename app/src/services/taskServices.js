@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiUrl = "http://localhost:8080/api/tasks";
+const apiUrl = "http://localhost:4000/api/tasks";
 
 export function postFilter(filter){
     let task;

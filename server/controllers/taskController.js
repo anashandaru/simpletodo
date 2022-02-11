@@ -1,15 +1,12 @@
 const Task = require('../models/taskModel');
 
 exports.new = async (req, res, next) => {
-    const newTask = new Task({
-        owner: req.body.owner,
-        content: req.body.content,
-    })
-
-    await newTask.save(err => {
-        if (err) res.json(err);
-        else res.json({ message: "new task created", data: newTask });
-    });
+    try {
+        const task = await new Task(req.body).save();
+        res.send(task);
+    } catch (error) {
+        res.send(error);
+    }
 };
 
 exports.view = async (req, res, next) => {
@@ -19,24 +16,32 @@ exports.view = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     try {
-        await Task.deleteOne({ _id: req.params.task_id }).exec();
-    } catch (err) {
-        res.json(err);
-        return next(err);
+        const task = await Task.deleteMany({_id: req.params.id});
+        res.send(task);
+    } catch (error) {
+        res.send(error);
     }
-    res.json({ message: "task deleted" })
 };
-exports.update = async (req, res, next) => {
-    let task;
+
+exports.filter = async (req, res, next) => {
     try {
-        task = await Task.findById(req.params.task_id).exec();
-        task.content = req.body.content;
-        await task.save();
-    } catch (err) {
-        res.json(err);
-        return next(err);
+        const tasks = await Task.find(req.body);
+        res.send(tasks);
+    } catch (error) {
+        res.send(error);
     }
-    res.json({ message: "task updated", data: task });
+}
+
+exports.update = async (req, res, next) => {
+    try {
+        const task = await Task.updateMany(
+            { _id: req.params.id },
+            req.body
+        );
+        res.send(task);
+    } catch (error) {
+        res.send(error);
+    }
 };
 
 exports.findById = async (req, res, next) => {
