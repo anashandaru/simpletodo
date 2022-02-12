@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const taskController = require('./controllers/taskController');
+const authController = require("./controllers/authController");
+
+const Auth = require("./middleware/auth");
 
 router.get("/", (req, res, next) => {
     res.json({
@@ -7,6 +10,9 @@ router.get("/", (req, res, next) => {
         message: "Welcome to simpletodo app",
     });
 });
+
+router.post("/register", authController.register);
+router.post("/login", authController.login);
 
 router.route("/tasks/:id")
     .get(taskController.findById)
