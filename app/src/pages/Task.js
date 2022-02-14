@@ -5,6 +5,10 @@ import { Checkbox, Button } from "@material-ui/core";
 import Select from 'react-select'
 import "../App.css"
 
+/* const Task = (props) => {
+
+} */
+
 class TaskApp extends Tasks {
     state = { tasks: [], currentTask: "" };
     render() {
@@ -16,6 +20,7 @@ class TaskApp extends Tasks {
         ];
         return (
             <div className="App flex">
+                {this.redirectToLogin()}
                 <Paper elevation={3} className="container">
                     <div className="heading">TO-DO</div>
                     <br/>

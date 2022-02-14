@@ -6,16 +6,36 @@ import {
     updateTask,
     deleteTask,
 } from "../services/taskServices";
+import { Navigate } from 'react-router-dom';
 
 class Tasks extends Component {
-    state = { tasks: [], currentTask: "" };
+    
+    state = {
+        tasks: [],
+        currentTask: "",
+        loginSuccess: false
+    };
 
     async componentDidMount() {
+        this.checkAuth();
         try {
             const { data } = await getTasks();
             this.setState({ tasks: data });
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    checkAuth = () => {
+        const token = localStorage.getItem("token");
+        if(!token){
+            this.setState({loginSuccess: true});
+        }
+    }
+
+    redirectToLogin = () => {
+        if(this.state.loginSuccess){
+            return <Navigate push to="/login"/>;
         }
     }
 

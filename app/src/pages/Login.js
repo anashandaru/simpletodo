@@ -1,72 +1,96 @@
 import { Paper, Button, TextField } from "@material-ui/core";
-import { Component } from "react";
-import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate  } from 'react-router-dom';
 import "../App.css"
-
 import { login } from "../services/authServices";
 
-class Login extends Component {
+const Login = (props) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    state = {
-        email: "",
-        password: "",
-        redirect: false
-    };
-
-    handeChange = (event) => {
-        this.setState({
-            [event.target.name] : event.target.value
-        });
-    };
-
-    handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await login(this.state);
-            console.log(data);
+            const { data } = await login({email,password});
             localStorage.setItem("token", data.token);
-            this.setState({redirect:true});
+            console.log(data);
+            navigate('/');
         } catch (error) {
             console.log(error);
         }
     };
 
-    render(){
-        return (
-            <div className="App flex">
-                { this.state.redirect ? (<Navigate push to="/"/>) : null }
-                <Paper className="container">
-                    <div className="heading">Sign In</div>
-                    <form >
-                        <br/>
-                        <br/>
-                        <TextField
-                            onChange={this.handeChange}
-                            name="email"
-                            variant="outlined"
-                            size="small"
-                            style={{width : "100%"}}
-                            label="email"
-                        />
-                        <br/>
-                        <br/>
-                        <TextField
-                            onChange={this.handeChange}
-                            variant="outlined"
-                            name="password"
-                            size="small"
-                            style={{width : "100%"}}
-                            label="password"
-                            type="password"
-                        />
-                        <br/>
-                        <br/>
-                        <Button type="submit" onClick={this.handleSubmit} color="primary" variant="contained">Sign In</Button>
-                    </form>
-                </Paper>
-            </div>
-        );
-    }
+    useEffect(() => {
+        if(localStorage.getItem('token')) {
+            navigate('/');
+        }
+    }, []);
+
+    return (
+        <div className="App flex">
+            {/* { this.redirectToHome() } */}
+            <Paper className="container">
+                <div className="heading">Sign In</div>
+                <br/><br/>
+                {/* {this.state.error_message ? (<Error message={ this.state.error_message }/>) : null} */}
+                <form >
+                    <br/>
+                    <br/>
+                    <TextField
+                        onChange={(e) => setEmail(e.target.value)}
+                        name="email"
+                        variant="outlined"
+                        size="small"
+                        style={{width : "100%"}}
+                        label="email"
+                    />
+                    <br/>
+                    <br/>
+                    <TextField
+                        onChange={(e) => setPassword(e.target.value)}
+                        variant="outlined"
+                        name="password"
+                        size="small"
+                        style={{width : "100%"}}
+                        label="password"
+                        type="password"
+                    />
+                    <br/>
+                    <br/>
+                    <Button type="submit" onClick={handleSubmit} color="primary" variant="contained">Sign In</Button>
+                </form>
+            </Paper>
+        </div>
+    );
 }
+
+/* class Login extends Component {
+
+    state = {
+        email: "",
+        password: "",
+        redirect: false,
+        error_message: ""
+    };
+
+    redirectToHome = () => {
+        if(this.state.redirect){
+            return <Navigate push to="/"/>;
+        }
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name] : event.target.value
+        });
+    };
+
+    
+
+    render(){
+        
+    }
+} */
 
 export default Login;
