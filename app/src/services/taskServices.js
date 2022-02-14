@@ -19,7 +19,7 @@ export function postFilter(filter){
         default:
             break;
     }
-    return axios.post(`${apiUrl}/${filter}`, task);
+    return axios.post(`${apiUrl}/${filter}`, task, header);
 }
 
 export function getTasks() {
@@ -27,13 +27,13 @@ export function getTasks() {
 }
 
 export function addTask(task) {
-    return axios.post(apiUrl, task);
+    return axios.post(apiUrl, task, header);
 }
 
 export function updateTask(id, task) {
-    return axios.put(apiUrl + "/" + id, task);
+    return axios.put(apiUrl + "/" + id, task, header);
 }
 
 export function deleteTask(id) {
-    return axios.delete(apiUrl + "/" + id);
+    return axios.delete(apiUrl + "/" + id, header);
 }
