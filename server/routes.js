@@ -15,11 +15,11 @@ router.post("/register", authController.register);
 router.post("/login", authController.login);
 
 router.route("/tasks/:id")
-    .get(taskController.findById)
-    .delete(taskController.delete)
-    .put(taskController.update);
+    .get(Auth.verifyUser('admin'), taskController.findById)
+    .delete(Auth.verifyUser('admin'), taskController.delete)
+    .put(Auth.verifyUser('admin'), taskController.update);
 
-router.route("/tasks").get(taskController.view).post(taskController.new)
-router.route('/tasks/:filter').post(taskController.filter);
+router.route("/tasks").get(Auth.verifyUser('admin'), taskController.view).post(taskController.new)
+router.route('/tasks/:filter').post(Auth.verifyUser('admin'), taskController.filter);
 
 module.exports = router;

@@ -1,6 +1,8 @@
 import axios from "axios";
 const apiUrl = "http://localhost:4000/api/tasks";
 
+const header = { headers: {"x-access-token" : localStorage.getItem('token')}};
+
 export function postFilter(filter){
     let task;
     filter = parseInt(filter);
@@ -21,7 +23,7 @@ export function postFilter(filter){
 }
 
 export function getTasks() {
-    return axios.get(apiUrl);
+    return axios.get(apiUrl, header);
 }
 
 export function addTask(task) {

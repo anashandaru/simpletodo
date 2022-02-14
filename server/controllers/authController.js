@@ -39,7 +39,7 @@ module.exports = {
             );
 
             user.token = token;
-            res.status(201).json(user);
+            return res.status(201).json(user);
         } catch (err){
             return res.json(err);
         }
