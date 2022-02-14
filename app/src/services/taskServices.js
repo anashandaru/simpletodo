@@ -31,9 +31,9 @@ export function addTask(task) {
 }
 
 export function updateTask(id, task) {
-    return axios.put(apiUrl + "/" + id, task, header);
+    return axios.put(`${apiUrl}/${id}`, task, header);
 }
 
 export function deleteTask(id) {
-    return axios.delete(apiUrl + "/" + id, header);
+    return axios.delete(`${apiUrl}/${id}`, header);
 }
