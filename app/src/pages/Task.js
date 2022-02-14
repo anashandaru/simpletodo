@@ -5,10 +5,6 @@ import { Checkbox, Button } from "@material-ui/core";
 import Select from 'react-select'
 import "../App.css"
 
-/* const Task = (props) => {
-
-} */
-
 class TaskApp extends Tasks {
     state = { tasks: [], currentTask: "" };
     render() {
