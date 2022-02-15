@@ -97,6 +97,11 @@ class Tasks extends Component {
             console.log(error);
         }
     };
+
+    handleLogout = async () => {
+        localStorage.clear();
+        <Navigate to={"/login"}/>
+    };
 }
 
 export default Tasks;
