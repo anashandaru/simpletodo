@@ -1,6 +1,6 @@
 import { Paper, Button, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 import { register } from "../services/authServices";
@@ -17,26 +17,31 @@ const Register = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const { data } = await register({
-          first_name,
-          last_name,
-          email,
-          password,
-          role
-        });
-        console.log(data);
-        await localStorage.setItem("token", data.token);
-        navigate('/');
+      const { data } = await register({
+        first_name,
+        last_name,
+        email,
+        password,
+        role,
+      });
+      console.log(data);
+      await localStorage.setItem("token", data.token);
+      navigate("/");
     } catch (error) {
-        console.log(error);
-        navigate('/register');
+      console.log(error);
+      navigate("/register");
     }
   };
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
+
   useEffect(() => {
-    if(localStorage.getItem('token')) {
-        navigate('/');
-      }
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
   }, []);
 
   return (
@@ -47,7 +52,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="first_name"
-            onChange={e => setFirstname(e.target.value)}
+            onChange={(e) => setFirstname(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
@@ -57,7 +62,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="last_name"
-            onChange={e => setLastname(e.target.value)}
+            onChange={(e) => setLastname(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
@@ -67,7 +72,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="email"
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
@@ -77,7 +82,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
@@ -86,13 +91,21 @@ const Register = (props) => {
           />
           <br />
           <br />
-          <Button type="submit" onClick={handleSubmit} color="primary" variant="contained">
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            color="primary"
+            variant="contained"
+          >
             Register
+          </Button>
+          <Button onClick={handleLogin} color="primary">
+            Sign In
           </Button>
         </form>
       </Paper>
     </div>
   );
-}
+};
 
 export default Register;
