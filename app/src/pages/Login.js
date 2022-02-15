@@ -21,6 +21,10 @@ const Login = (props) => {
         }
     };
 
+    const handleRegister = () => {
+        navigate('/register');
+    }
+
     useEffect(() => {
         if(localStorage.getItem('token')) {
             navigate('/');
@@ -59,6 +63,7 @@ const Login = (props) => {
                     <br/>
                     <br/>
                     <Button type="submit" onClick={handleSubmit} color="primary" variant="contained">Sign In</Button>
+                    <Button color="primary" onClick={handleRegister} >Sign Up</Button>
                 </form>
             </Paper>
         </div>
