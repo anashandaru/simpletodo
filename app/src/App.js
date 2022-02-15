@@ -7,17 +7,18 @@ import {
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
-import { useState } from "react";
 
 const App = () => {
-
-  const [user, setUser] = useState("");
-
   return (
     <BrowserRouter>
-    <Navbar authUser={user} />
         <Routes>
-            <Route path="/" exact element={<Task isAuthuser={(e) => setUser(e)} />}/>
+            <Route path="/" exact element={
+              <>
+                <Navbar/>
+                <Task/>
+              </>
+            }>
+            </Route>
             <Route path="login" element={<Login/>}/>
             <Route path="register" element={<Register/>}/>
         </Routes>

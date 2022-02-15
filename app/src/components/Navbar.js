@@ -29,13 +29,8 @@ export default function Navbar(props) {
     const classes = useStyles();
     const navigate = useNavigate();
 
-    let auth = props.authUser !== "";
-
     const handleLogout = async () => {
         localStorage.clear();
-        auth = false;
-        let logoutBtn = document.getElementById('logout-btn');
-        logoutBtn.remove();
         navigate('login');
     }
 
@@ -52,7 +47,7 @@ export default function Navbar(props) {
                 App
             </Typography>
             <Grid container justifyContent="flex-end">
-                { auth ? (<Button id='logout-btn' onClick={handleLogout} color="inherit">Logout</Button>) : null }
+                <Button id='logout-btn' onClick={handleLogout} color="inherit">Logout</Button>
             </Grid>
             </Toolbar>
         </AppBar>

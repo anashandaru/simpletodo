@@ -23,7 +23,7 @@ const Task = (props) => {
         try {
             const { data } = await getTasks();
             setTasks(data);
-            props.isAuthuser("true");
+            // props.isAuthuser("true");
         } catch (error) {
             navigate('login');
         }
