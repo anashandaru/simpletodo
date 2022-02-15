@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Paper, TextField } from "@material-ui/core";
-import { Checkbox, Button } from "@material-ui/core";
+import { Paper, TextField, Checkbox, Button } from "@material-ui/core";
 import Select from "react-select";
 import { useNavigate } from 'react-router-dom';
 import "../App.css";
+import Navbar from "../components/Navbar"
 import {
     postFilter,
     addTask,
@@ -23,6 +23,7 @@ const Task = (props) => {
         try {
             const { data } = await getTasks();
             setTasks(data);
+            props.isAuthuser("true");
         } catch (error) {
             navigate('login');
         }
@@ -83,11 +84,6 @@ const Task = (props) => {
         }
     };
 
-    const handleLogout = async () => {
-        localStorage.clear();
-        navigate('login');
-    }
-
     const filterOptions = [
         { value: 0, label: "All" },
         { value: 1, label: "Completed" },
@@ -143,16 +139,6 @@ const Task = (props) => {
                 </Paper>
               ))}
             </div>
-            <form onSubmit={handleLogout}>
-              <Button
-                style={{ height: "40px" }}
-                color="secondary"
-                variant="outlined"
-                type="submit"
-              >
-                Logout
-              </Button>
-            </form>
           </Paper>
         </div>
       );
