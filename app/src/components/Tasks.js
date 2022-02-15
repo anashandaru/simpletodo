@@ -17,7 +17,6 @@ class Tasks extends Component {
     };
 
     async componentDidMount() {
-        this.checkAuth();
         try {
             const { data } = await getTasks();
             this.setState({ tasks: data });
@@ -28,14 +27,8 @@ class Tasks extends Component {
 
     checkAuth = () => {
         const token = localStorage.getItem("token");
-        if(!token){
+        if(token){
             this.setState({loginSuccess: true});
-        }
-    }
-
-    redirectToLogin = () => {
-        if(this.state.loginSuccess){
-            return <Navigate push to="/login"/>;
         }
     }
 
@@ -100,7 +93,7 @@ class Tasks extends Component {
 
     handleLogout = async () => {
         localStorage.clear();
-        <Navigate to={"/login"}/>
+        return <Navigate to={"/login"}/>
     };
 }
 

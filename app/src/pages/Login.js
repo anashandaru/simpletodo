@@ -15,6 +15,7 @@ const Login = (props) => {
       const { data } = await login({ email, password });
       await localStorage.setItem("token", data.token);
       console.log(data);
+      window.location.reload();
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -28,7 +29,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      navigate("/");
+        navigate("/");
     }
   }, []);
 

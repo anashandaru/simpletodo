@@ -3,6 +3,7 @@ import Tasks from "../components/Tasks";
 import { Paper, TextField } from "@material-ui/core";
 import { Checkbox, Button } from "@material-ui/core";
 import Select from "react-select";
+import { Navigate } from 'react-router-dom';
 import "../App.css";
 
 class TaskApp extends Tasks {
@@ -16,7 +17,7 @@ class TaskApp extends Tasks {
     ];
     return (
       <div className="App flex">
-        {this.redirectToLogin()}
+          {this.state.loginSuccess ? <Navigate push to="/login"/> : null}
         <Paper elevation={3} className="container">
           <div className="heading">TO-DO</div>
           <br />
