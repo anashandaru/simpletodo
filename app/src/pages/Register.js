@@ -10,7 +10,7 @@ const Register = (props) => {
   const [last_name, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState([]);
+  const [role, setRole] = useState(["admin"]);
 
   const navigate = useNavigate();
 
@@ -25,11 +25,11 @@ const Register = (props) => {
           role
         });
         console.log(data);
-        localStorage.setItem("token", data.token);
+        await localStorage.setItem("token", data.token);
         navigate('/');
     } catch (error) {
         console.log(error);
-        navigate('/login');
+        navigate('/register');
     }
   };
 
@@ -47,7 +47,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="first_name"
-            onChange={setFirstname}
+            onChange={e => setFirstname(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
@@ -57,7 +57,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="last_name"
-            onChange={setLastname}
+            onChange={e => setLastname(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
@@ -67,7 +67,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="email"
-            onChange={setEmail}
+            onChange={e => setEmail(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
@@ -77,7 +77,7 @@ const Register = (props) => {
           <br />
           <TextField
             name="password"
-            onChange={setPassword}
+            onChange={e => setPassword(e.target.value)}
             variant="outlined"
             size="small"
             style={{ width: "100%" }}
