@@ -13,7 +13,7 @@ const Login = (props) => {
     e.preventDefault();
     try {
       const { data } = await login({ email, password });
-      await localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.token);
       console.log(data);
       window.location.reload();
       navigate("/");

@@ -1,4 +1,4 @@
-import TaskApp from "./pages/Task";
+import Task from "./pages/Task";
 import {
   BrowserRouter,
   Routes,
@@ -11,7 +11,7 @@ const App = () => {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path="/" exact element={<TaskApp/>}/>
+            <Route path="/" exact element={<Task/>}/>
             <Route path="login" element={<Login/>}/>
             <Route path="register" element={<Register/>}/>
         </Routes>
