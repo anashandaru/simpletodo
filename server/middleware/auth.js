@@ -13,6 +13,7 @@ module.exports = {
                 const decoded = jwt.verify(token, config.TOKEN_KEY);
                 req.user = decoded;
                 const user = await User.findOne({_id: req.user.user_id});
+                req.body.owner = req.user.user_id;
                 if(!user.role.includes(role)){
                     return res.status(401).send("You don't have permissions to access this page");
                 }
