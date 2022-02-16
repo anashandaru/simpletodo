@@ -20,7 +20,7 @@ const Login = (props) => {
       window.location.reload();
       navigate("/");
     } catch (error) {
-      setError("Cannot Login Wrong email or password");
+      setError(error.response.data);
       console.log("cannot login");
     }
   };

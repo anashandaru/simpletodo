@@ -67,7 +67,7 @@ module.exports = {
                 return res.status(200).json(user);
             }
 
-            return res.status(500).json({msg:"User not found"});
+            return res.status(500).send("User not found");
         } catch (error){
             return res.json(error);
         }
