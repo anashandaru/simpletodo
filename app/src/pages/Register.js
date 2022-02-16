@@ -28,6 +28,7 @@ const Register = (props) => {
       });
       console.log(data);
       await localStorage.setItem("token", data.token);
+      window.location.reload();
       navigate("/");
     } catch (error) {
       console.log(error.response.data);
