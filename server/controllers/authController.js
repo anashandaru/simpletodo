@@ -17,7 +17,7 @@ module.exports = {
             const oldUser = await User.findOne({email});
 
             if(oldUser){
-                return res.status(409).send("User already exist. Pelase login.");
+                return res.status(409).send("User already exist. Please login.");
             }
 
             encryptedPassword = await bcrypt.hash(password, 10);
