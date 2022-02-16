@@ -8,8 +8,7 @@ export function postFilter(filter){
     filter = parseInt(filter);
     switch (filter) {
         case 0:
-            task = {};
-            break;
+            return axios.get(apiUrl, header);
         case 1:
             task = {completed: true};
             break;
