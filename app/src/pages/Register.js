@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 import { register } from "../services/authServices";
+import Error from "./Error";
 
 const Register = (props) => {
   const [first_name, setFirstname] = useState("");
@@ -11,6 +12,7 @@ const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState(["admin"]);
+  const [errorStatus, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,7 +30,8 @@ const Register = (props) => {
       await localStorage.setItem("token", data.token);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
+      setError(error.response.data);
       navigate("/register");
     }
   };
@@ -103,6 +106,8 @@ const Register = (props) => {
             Sign In
           </Button>
         </form>
+        <br/>
+        {errorStatus.length > 0 && <Error message={errorStatus}/>}
       </Paper>
     </div>
   );
