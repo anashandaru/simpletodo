@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { login } from "../services/authServices";
+import Error from "./Error";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorStatus, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,7 +20,8 @@ const Login = (props) => {
       window.location.reload();
       navigate("/");
     } catch (error) {
-      console.log(error);
+      setError("Cannot Login Wrong email or password");
+      console.log("cannot login");
     }
   };
 
@@ -29,7 +32,7 @@ const Login = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-        navigate("/");
+      navigate("/");
     }
   }, []);
 
@@ -77,17 +80,19 @@ const Login = (props) => {
             Sign Up
           </Button>
         </form>
+        <br />
+        {errorStatus.length > 0 && <Error message={errorStatus} />}
       </Paper>
     </div>
   );
 };
 
 /* class Login extends Component {
-
-    state = {
-        email: "",
-        password: "",
-        redirect: false,
+  
+  state = {
+    email: "",
+    password: "",
+    redirect: false,
         error_message: ""
     };
 
