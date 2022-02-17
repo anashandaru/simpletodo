@@ -7,23 +7,23 @@ require("dotenv").config();
 module.exports = {
   register: async (req, res, next) => {
     try {
-      const { first_name, last_name, email, password, role } = req.body;
+      let { first_name, last_name, email, password, role } = req.body;
       email = email.toLowerCase();
 
       if (!(email && password && first_name && last_name && role)) {
         return res.status(404).send("All input is required");
       }
-
+      console;
       if (password.length < 8) {
         return res.status(404).send("Password should more than 8 characters");
       }
 
-      if (!email.includes("@")){
-          return res.status(404).send("Please enter valid email address");
+      if (!email.includes("@")) {
+        return res.status(404).send("Please enter valid email address");
       }
 
-      if (first_name.trim().length === 0 || last_name.trim().length){
-          return res.status(404).send("Please enter valid input");
+      if (first_name.trim().length === 0 || last_name.trim().length === 0) {
+        return res.status(404).send("Please enter valid input");
       }
 
       const oldUser = await User.findOne({ email });
