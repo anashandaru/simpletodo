@@ -1,5 +1,5 @@
 import { Paper, Button, TextField } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { login } from "../services/authServices";
@@ -16,8 +16,6 @@ const Login = (props) => {
     try {
       const { data } = await login({ email, password });
       localStorage.setItem("token", data.token);
-      console.log(data);
-      window.location.reload();
       navigate("/");
     } catch (error) {
       setError(error.response.data);
@@ -29,12 +27,6 @@ const Login = (props) => {
     e.preventDefault();
     navigate("/register");
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <div className="App flex">
@@ -86,33 +78,5 @@ const Login = (props) => {
     </div>
   );
 };
-
-/* class Login extends Component {
-  
-  state = {
-    email: "",
-    password: "",
-    redirect: false,
-        error_message: ""
-    };
-
-    redirectToHome = () => {
-        if(this.state.redirect){
-            return <Navigate push to="/"/>;
-        }
-    }
-
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name] : event.target.value
-        });
-    };
-
-    
-
-    render(){
-        
-    }
-} */
 
 export default Login;

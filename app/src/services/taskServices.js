@@ -1,7 +1,7 @@
 import axios from "axios";
 const apiUrl = "http://localhost:4000/api/tasks";
 
-const header = { headers: {"x-access-token" : localStorage.getItem('token')}};
+const header = () => {return { headers: {"x-access-token" : localStorage.getItem('token')}}};
 
 export function postFilter(filter){
     let task;
@@ -22,17 +22,17 @@ export function postFilter(filter){
 }
 
 export function getTasks() {
-    return axios.get(apiUrl, header);
+    return axios.get(apiUrl, header());
 }
 
 export function addTask(task) {
-    return axios.post(apiUrl, task, header);
+    return axios.post(apiUrl, task, header());
 }
 
 export function updateTask(id, task) {
-    return axios.put(`${apiUrl}/${id}`, task, header);
+    return axios.put(`${apiUrl}/${id}`, task, header());
 }
 
 export function deleteTask(id) {
-    return axios.delete(`${apiUrl}/${id}`, header);
+    return axios.delete(`${apiUrl}/${id}`, header());
 }

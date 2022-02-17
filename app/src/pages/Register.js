@@ -1,5 +1,5 @@
 import { Paper, Button, TextField } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 
@@ -11,9 +11,8 @@ const Register = (props) => {
   const [last_name, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(["admin"]);
   const [errorStatus, setError] = useState("");
-
+  const role = "admin";
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,12 +25,9 @@ const Register = (props) => {
         password,
         role,
       });
-      console.log(data);
-      await localStorage.setItem("token", data.token);
-      window.location.reload();
+      localStorage.setItem("token", data.token);
       navigate("/");
     } catch (error) {
-      console.log(error.response.data);
       setError(error.response.data);
       navigate("/register");
     }
@@ -41,12 +37,6 @@ const Register = (props) => {
     e.preventDefault();
     navigate("/login");
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <div className="App flex">
