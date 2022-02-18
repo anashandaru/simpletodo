@@ -15,6 +15,8 @@ import {
 const Task = (props) => {
   const [taskState, setTasks] = useState([]);
   const [currentTaskState, setCurrenttask] = useState("");
+  const [editedTask, setEditTask] = useState("");
+  const [editedTaskId, setEditTaskId] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,6 +28,20 @@ const Task = (props) => {
       navigate("login");
     }
   }, []);
+
+  useEffect(() => {
+    const theTimer = setTimeout( async() => {
+      if (editedTask && editedTaskId) {
+        await updateTask(editedTaskId, {
+          content: editedTask,
+        });
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(theTimer);
+    };
+  }, [editedTask]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,6 +78,22 @@ const Task = (props) => {
       await updateTask(currentTask, {
         completed: tasks[index].completed,
       });
+    } catch (error) {
+      setTasks(originalTasks);
+      console.log(error);
+    }
+  };
+
+  const handleEdit = async (currentTask, newContent) => {
+    const originalTasks = taskState;
+    try {
+      const tasks = [...originalTasks];
+      const index = tasks.findIndex((task) => task._id === currentTask);
+      tasks[index] = { ...tasks[index] };
+      tasks[index].content = newContent;
+      setTasks(tasks);
+      setEditTaskId(currentTask);
+      setEditTask(newContent);
     } catch (error) {
       setTasks(originalTasks);
       console.log(error);
@@ -123,9 +155,16 @@ const Task = (props) => {
                 checked={task.completed}
                 color="primary"
               />
-              <div className={task.completed ? "task line_through" : "task"}>
+              <TextField
+                onChange={(e) => {
+                  handleEdit(task._id, e.target.value);
+                }}
+                defaultValue={task.content}
+                className={task.completed ? "task line_through" : "task"}
+              />
+              {/* <div className={task.completed ? "task line_through" : "task"}>
                 {task.content}
-              </div>
+              </div> */}
               <Button onClick={() => handleDelete(task._id)} color="secondary">
                 delete
               </Button>
