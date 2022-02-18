@@ -18,7 +18,7 @@ export function postFilter(filter){
         default:
             break;
     }
-    return axios.post(`${apiUrl}/${filter}`, task, header);
+    return axios.post(`${apiUrl}/${filter}`, task, header());
 }
 
 export function getTasks() {
